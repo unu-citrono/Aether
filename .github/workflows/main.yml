@@ -15,14 +15,14 @@ jobs:
           
     - name: Setup hexo
       env: 
-          ACTIONS_DEPLOY_KEY: ${{ secrets.HEXO_DEPLOY_PRI }} 
+          HEXO_DEPLOY_PRI: ${{ secrets.HEXO_DEPLOY_PRI }} 
       run: |
         mkdir -p ~/.ssh/
         echo "$HEXO_DEPLOY_PRI"
         echo "$HEXO_DEPLOY_PRI" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
         ssh-keyscan github.com >> ~/.ssh/known_hosts
-        git config --global user.email "2636488059"
+        git config --global user.email "2636488059@qq.com"
         git config --global user.name "citrono" 
         npm install hexo-cli -g
         npm install
