@@ -11,7 +11,7 @@ jobs:
 
     - uses: actions/setup-node@v1
       with:
-        node-version: '12'
+        node-version: '14.9.0'
           
     - name: Setup hexo
       env: 
@@ -29,4 +29,3 @@ jobs:
     
     - name: Generate
       run: hexo clean && hexo generate && hexo deploy
-
