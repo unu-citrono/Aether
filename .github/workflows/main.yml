@@ -1,0 +1,30 @@
+name: Compile and Deploy to GitHub Page
+on:
+  push:
+    branches:
+      - dev
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '14.9.0'
+          
+    - name: Setup hexo
+      env: 
+          ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }} 
+      run: |
+        mkdir -p ~/.ssh/
+        echo "$ACTIONS_DEPLOY_KEY" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan github.com >> ~/.ssh/known_hosts
+        git config --global user.email "2636488059"
+        git config --global user.name "citrono" 
+        npm install hexo-cli -g
+        npm install
+    
+    - name: Generate
+      run: hexo clean && hexo generate && hexo deploy
